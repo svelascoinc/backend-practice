@@ -1,0 +1,35 @@
+const {createContainer, asClass, asValue, asFunction} = require("awilix");
+
+const config = require("../config");
+
+const app = require('.');
+
+const {HomeService} = require("../services");
+
+const { HomeController } = require("../controllers");
+
+const { HomeRoutes } = require("../routes/index.routes");
+
+const routes = require("../routes")
+
+
+const container = createContainer();
+
+/*Se creará una inyección de dependencia la cual será una clase tipo singleton para que
+siempre sea la misma instancia de la clase, compartida por las demas*/
+container
+.register({
+    app: asClass(app).singleton(),
+    router: asFunction(routes).singleton(),
+    config: asValue(config)
+})
+.register({
+    HomeService: asClass(HomeService).singleton()
+}).register({
+//Se utiliza el Bind(), para mantener el scope
+    HomeController: asClass(HomeController.bind(HomeController)).singleton()
+}).register({
+    HomeRoutes: asFunction(HomeRoutes).singleton()
+});
+
+module.exports = container;
