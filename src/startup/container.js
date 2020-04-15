@@ -4,7 +4,7 @@ const config = require("../config");
 
 const app = require('.');
 
-const {HomeService} = require("../services");
+const { HomeService, UserService, IdeaService, CommentService } = require("../services");
 
 const { HomeController } = require("../controllers");
 
@@ -15,7 +15,6 @@ const { User, Comment, Idea } = require("../models")
 const routes = require("../routes")
 
 const { UserRepository, IdeaRepository, CommentRepository } = require("../repositories")
-
 
 const container = createContainer();
 
@@ -28,7 +27,10 @@ container
     config: asValue(config)
 })
 .register({
-    HomeService: asClass(HomeService).singleton()
+    HomeService: asClass(HomeService).singleton(),
+    UserService: asClass(UserService).singleton(),
+    IdeaService: asClass(IdeaService).singleton(),
+    CommentService: asClass(CommentService).singleton()
 }).register({
 //Se utiliza el Bind(), para mantener el scope
     HomeController: asClass(HomeController.bind(HomeController)).singleton()

@@ -2,9 +2,9 @@ const BaseRepository = require("./base.repository");
 let _idea = null;
 
 class IdeaRepository extends BaseRepository {
-        constructor({ Idea }){
+    constructor({ Idea }){
     //Para pasar el constructor de la clase padre a la hija se usa "super"
-            super(Idea);
+        super(Idea);
             _idea = Idea;
         }
 
