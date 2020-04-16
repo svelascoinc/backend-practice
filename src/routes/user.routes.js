@@ -1,5 +1,5 @@
 const { Router} = require("express");
-const { AuthMiddleware } = require("../middlewares")
+const { AuthMiddleware, ParseIntMiddleware } = require("../middlewares")
 
 module.exports = function({ UserController }) {
     const router = Router();
@@ -7,7 +7,7 @@ module.exports = function({ UserController }) {
 /* Cuando se invoque un llamado a la ruta Home, 
 El controlador HomeController se ejecutará con el metodo Index()*/
     router.get("/:userId", UserController.get);
-    router.get("", [AuthMiddleware], UserController.getAll);
+    router.get("", [AuthMiddleware, ParseIntMiddleware], UserController.getAll);
     router.patch("/:userId", UserController.update);
     router.delete("/:userId", UserController.delete);
 

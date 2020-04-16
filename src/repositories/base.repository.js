@@ -7,9 +7,13 @@ class BaseRepository {
     async get(id){
         return await this.model.findById(id);
     }
-
-    async getAll(){
-        return await this.model.find();
+//Configuración para Paginación de elementos retornados en all
+    async getAll(pageSize = 5, pageNum = 1){
+        const skips = pageSize * (pageNum -1);
+        return await this.model
+        .find()
+        .skip(skips)
+        .limit(pageSize);
     }
 
     async create(entity){

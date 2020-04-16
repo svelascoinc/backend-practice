@@ -1,4 +1,5 @@
 const { Router} = require("express");
+const { ParseIntMiddleware } = require("../middlewares");
 
 module.exports = function({ IdeaController }) {
     const router = Router();
@@ -6,7 +7,7 @@ module.exports = function({ IdeaController }) {
 /* Cuando se invoque un llamado a la ruta Home, 
 El controlador HomeController se ejecutará con el metodo Index()*/
     router.get("/:ideaId", IdeaController.get);
-    router.get("", IdeaController.getAll);
+    router.get("", ParseIntMiddleware,IdeaController.getAll);
     router.get("/:userId/all", IdeaController.getUserIdeas);
     router.post("", IdeaController.create);
     router.patch("/:ideaId", IdeaController.update);
