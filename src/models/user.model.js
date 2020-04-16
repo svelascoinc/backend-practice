@@ -27,7 +27,7 @@ UserSchema.methods.toJSON = function(){
 }
 
 //Creación de Metodo para comparar el Password
-UserSchema.method.comparePasswords = function(password){
+UserSchema.methods.comparePasswords = function(password){
     return compareSync(password, this.password)
 }
 
