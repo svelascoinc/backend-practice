@@ -1,4 +1,5 @@
 const { Router} = require("express");
+const { AuthMiddleware } = require("../middlewares");
 
 module.exports = function({ CommentController }) {
     const router = Router();
@@ -7,8 +8,8 @@ module.exports = function({ CommentController }) {
 El controlador HomeController se ejecutará con el metodo Index()*/
     router.get("/:commentId/unique", CommentController.get);
     router.get("/:ideaId", CommentController.getIdeasComments);
-    router.post("/:ideaId", CommentController.createComment)
-    router.patch("/:commentId", CommentController.update);
-    router.delete("/:commentId", CommentController.delete);
+    router.post("/:ideaId", AuthMiddleware, CommentController.createComment)
+    router.patch("/:commentId", AuthMiddleware, CommentController.update);
+    router.delete("/:commentId", AuthMiddleware, CommentController.delete);
     return router;
 };
